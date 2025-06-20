@@ -11,68 +11,44 @@
             box-sizing: border-box;
         }
         
-        body {
+        html, body {
+            height: 100%;
+            width: 100%;
             font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
             line-height: 1.5;
-            color-scheme: light dark;
+            background: transparent;
         }
         
         .calculator {
             width: 100%;
-            background: var(--bg-color);
-            color: var(--text-color);
-            border: 1px solid var(--border-color);
-            border-radius: 3px;
-            overflow: hidden;
-        }
-        
-        /* Light mode (default) */
-        :root {
-            --bg-color: #ffffff;
-            --text-color: #37352f;
-            --text-muted: #787774;
-            --border-color: #e9e9e7;
-            --input-bg: #ffffff;
-            --note-bg: #f7f6f3;
-            --savings-color: #0f7b0f;
-            --focus-color: #2383e2;
-        }
-        
-        /* Dark mode */
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --bg-color: #2f3437;
-                --text-color: #ffffff;
-                --text-muted: #9b9a97;
-                --border-color: #373c43;
-                --input-bg: #25262b;
-                --note-bg: #373c43;
-                --savings-color: #4fb94f;
-                --focus-color: #529cca;
-            }
+            min-height: 100vh;
+            background: #191919;
+            color: #ffffff;
+            overflow: visible;
         }
         
         .header {
             padding: 16px 20px 12px;
-            border-bottom: 1px solid var(--border-color);
-            background: var(--bg-color);
+            border-bottom: 1px solid #373c43;
+            background: #191919;
         }
         
         .header h2 {
             font-size: 16px;
             font-weight: 600;
-            color: var(--text-color);
+            color: #ffffff;
             margin-bottom: 2px;
         }
         
         .header p {
             font-size: 14px;
-            color: var(--text-muted);
+            color: #9b9a97;
         }
         
         .content {
             padding: 20px;
-            background: var(--bg-color);
+            background: #191919;
+            min-height: calc(100vh - 80px);
         }
         
         .input-row {
@@ -84,7 +60,7 @@
         
         .input-row label {
             font-size: 14px;
-            color: var(--text-color);
+            color: #ffffff;
             width: 200px;
             flex-shrink: 0;
         }
@@ -92,22 +68,22 @@
         .input-row input {
             width: 100px;
             padding: 4px 8px;
-            border: 1px solid var(--border-color);
+            border: 1px solid #373c43;
             border-radius: 3px;
             font-size: 14px;
-            color: var(--text-color);
-            background: var(--input-bg);
+            color: #ffffff;
+            background: #25262b;
             text-align: right;
         }
         
         .input-row input:focus {
             outline: none;
-            border-color: var(--focus-color);
+            border-color: #529cca;
         }
         
         .divider {
             height: 1px;
-            background: var(--border-color);
+            background: #373c43;
             margin: 16px 0;
         }
         
@@ -117,34 +93,35 @@
             justify-content: space-between;
             padding: 6px 0;
             font-size: 14px;
-            color: var(--text-color);
+            color: #ffffff;
         }
         
         .result-row.total {
             font-weight: 600;
             padding-top: 8px;
-            border-top: 1px solid var(--border-color);
+            border-top: 1px solid #373c43;
             margin-top: 8px;
         }
         
         .result-value {
             font-family: ui-monospace, SFMono-Regular, "SF Mono", Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-            color: var(--text-color);
+            color: #ffffff;
         }
         
         .result-value.savings {
-            color: var(--savings-color);
+            color: #4fb94f;
             font-weight: 600;
         }
         
         .note {
             margin-top: 16px;
+            margin-bottom: 20px;
             padding: 12px;
-            background: var(--note-bg);
+            background: #25262b;
             border-radius: 3px;
             font-size: 13px;
-            color: var(--text-muted);
-            border-left: 3px solid var(--border-color);
+            color: #9b9a97;
+            border-left: 3px solid #373c43;
         }
         
         @media (max-width: 520px) {
@@ -203,8 +180,6 @@
                 <span>Annual savings</span>
                 <span class="result-value savings" id="savings">$88,000</span>
             </div>
-
-
             
             <div class="note">
                 Your savings are <strong><span id="multiplier">296x</span></strong> higher than this guide's cost ($297)
