@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ROI Calculator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
+            background: #ffffff;
+            color: #37352f;
+            line-height: 1.5;
+            padding: 16px;
+        }
+        
+        .calculator {
+            max-width: 480px;
+            margin: 0 auto;
+            background: #ffffff;
+            border: 1px solid #e9e9e7;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        
+        .header {
+            padding: 16px 20px 12px;
+            border-bottom: 1px solid #e9e9e7;
+        }
+        
+        .header h2 {
+            font-size: 16px;
+            font-weight: 600;
+            color: #37352f;
+            margin-bottom: 2px;
+        }
+        
+        .header p {
+            font-size: 14px;
+            color: #787774;
+        }
+        
+        .content {
+            padding: 20px;
+        }
+        
+        .input-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+            padding: 8px 0;
+        }
+        
+        .input-row label {
+            font-size: 14px;
+            color: #37352f;
+            width: 200px;
+            flex-shrink: 0;
+        }
+        
+        .input-row input {
+            width: 100px;
+            padding: 4px 8px;
+            border: 1px solid #e9e9e7;
+            border-radius: 3px;
+            font-size: 14px;
+            color: #37352f;
+            background: #ffffff;
+            text-align: right;
+        }
+        
+        .input-row input:focus {
+            outline: none;
+            border-color: #2383e2;
+        }
+        
+        .divider {
+            height: 1px;
+            background: #e9e9e7;
+            margin: 16px 0;
+        }
+        
+        .result-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 6px 0;
+            font-size: 14px;
+        }
+        
+        .result-row.total {
+            font-weight: 600;
+            padding-top: 8px;
+            border-top: 1px solid #e9e9e7;
+            margin-top: 8px;
+        }
+        
+        .result-value {
+            font-family: ui-monospace, SFMono-Regular, "SF Mono", Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+            color: #37352f;
+        }
+        
+        .result-value.savings {
+            color: #0f7b0f;
+            font-weight: 600;
+        }
+        
+        .note {
+            margin-top: 16px;
+            padding: 12px;
+            background: #f7f6f3;
+            border-radius: 3px;
+            font-size: 13px;
+            color: #787774;
+            border-left: 3px solid #e9e9e7;
+        }
+        
+        @media (max-width: 520px) {
+            .input-row {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 4px;
+            }
+            
+            .input-row label {
+                width: 100%;
+            }
+            
+            .input-row input {
+                width: 120px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <div class="header">
+            <h2>ROI Calculator</h2>
+            <p>Compare recruiting costs: traditional vs. outbound</p>
+        </div>
+        
+        <div class="content">
+            <div class="input-row">
+                <label>Average salary</label>
+                <input type="number" id="salary" value="75000">
+            </div>
+            
+            <div class="input-row">
+                <label>Hires per year</label>
+                <input type="number" id="hires" value="6">
+            </div>
+            
+            <div class="input-row">
+                <label>Recruiter fee (%)</label>
+                <input type="number" id="fee" value="20">
+            </div>
+            
+            <div class="divider"></div>
+            
+            <div class="result-row">
+                <span>Traditional recruiting cost</span>
+                <span class="result-value" id="traditional">$90,000</span>
+            </div>
+            
+            <div class="result-row">
+                <span>Outbound system cost</span>
+                <span class="result-value" id="outbound">$2,000</span>
+            </div>
+            
+            <div class="result-row total">
+                <span>Annual savings</span>
+                <span class="result-value savings" id="savings">$88,000</span>
+            </div>
+            
+            <div class="note">
+                Your savings are <strong><span id="multiplier">296x</span></strong> higher than this guide's cost ($297)
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function calculate() {
+            const salary = parseInt(document.getElementById('salary').value) || 0;
+            const hires = parseInt(document.getElementById('hires').value) || 0;
+            const fee = parseInt(document.getElementById('fee').value) || 0;
+            
+            const traditional = salary * (fee / 100) * hires;
+            const outbound = 2000;
+            const savings = traditional - outbound;
+            const multiplier = Math.round(savings / 297);
+            
+            document.getElementById('traditional').textContent = `$${traditional.toLocaleString()}`;
+            document.getElementById('outbound').textContent = `$${outbound.toLocaleString()}`;
+            document.getElementById('savings').textContent = `$${savings.toLocaleString()}`;
+            document.getElementById('multiplier').textContent = `${multiplier}x`;
+        }
+        
+        document.getElementById('salary').addEventListener('input', calculate);
+        document.getElementById('hires').addEventListener('input', calculate);
+        document.getElementById('fee').addEventListener('input', calculate);
+        
+        calculate();
+    </script>
+</body>
+</html>
